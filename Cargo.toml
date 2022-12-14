@@ -1,0 +1,16 @@
+[package]
+name = "edit-ini"
+version = "0.1.0"
+edition = "2021"
+authors = ["Chocobo1 <https://github.com/Chocobo1>"]
+description = "Command line tool for editing .ini files"
+homepage = "https://github.com/Chocobo1/edit-ini"
+license = "GPL-3.0+"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "4", features = ["cargo", "derive"] }
+
+# TODO: use version "0.19.0" when released
+rust-ini = { git = "https://github.com/zonyitoo/rust-ini.git", rev = "641bb494bbefdbae1796cb341845dd06dd9a9d4c", features = ["brackets-in-section-names", "case-insensitive", "inline-comment"] }
