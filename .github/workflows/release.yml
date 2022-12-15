@@ -13,6 +13,9 @@ jobs:
     name: macOS Release
     runs-on: macos-latest
 
+    env:
+      RUSTFLAGS: "-C target-feature=+crt-static"
+
     strategy:
       fail-fast: false
       matrix:
@@ -51,9 +54,10 @@ jobs:
       fail-fast: false
       matrix:
         target:  # https://rust-lang.github.io/rustup-components-history/
-          - aarch64-unknown-linux-gnu
-          - i686-unknown-linux-gnu
-          - x86_64-unknown-linux-gnu
+          - aarch64-unknown-linux-musl
+          - armv7-unknown-linux-musleabihf
+          - i686-unknown-linux-musl
+          - x86_64-unknown-linux-musl
 
     steps:
       - uses: actions/checkout@v3
@@ -65,8 +69,17 @@ jobs:
           profile: minimal
           override: true
 
+      # workaround to install `cross` without `RUSTFLAGS`
+      - name: Clean
+        uses: actions-rs/cargo@v1
+        with:
+          command: clean
+          use-cross: true
+
       - name: Build
         uses: actions-rs/cargo@v1
+        env:
+          RUSTFLAGS: "-C target-feature=+crt-static"
         with:
           command: build
           args: --target ${{ matrix.target }} --release
@@ -89,6 +102,9 @@ jobs:
   Windows:
     name: Windows Release
     runs-on: windows-latest
+
+    env:
+      RUSTFLAGS: "-C target-feature=+crt-static"
 
     strategy:
       fail-fast: false
