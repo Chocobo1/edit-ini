@@ -40,7 +40,7 @@ Options:
   edit-ini \
     -s "Top Secret" Name=Alfa \
     -s Secret Name=Bravo \
-    -s Confidential Name=Charlie \
+    -s Confidential "Name (X)=Charlie (Z)" \
     -o clearance.ini
   ```
   Gives:
@@ -52,7 +52,7 @@ Options:
   Name=Bravo
 
   [Confidential]
-  Name=Charlie
+  Name (X)=Charlie (Z)
   ```
 
 ## License
